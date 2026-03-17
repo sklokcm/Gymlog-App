@@ -1,0 +1,103 @@
+/* Базові налаштування для мобільного вигляду */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e9ecef;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Імітація екрана смартфона */
+#app-container {
+    width: 100%;
+    max-width: 400px;
+    height: 80vh;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    padding: 20px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Логіка перемикання екранів */
+.screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Стилізація кнопок */
+button {
+    padding: 15px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s;
+}
+
+.button-group {
+    width: 100%;
+    margin-top: auto; /* Тепер вся група кнопок падає вниз екрана */
+    display: flex;
+    flex-direction: column; /* Ставить кнопки одна над одною */
+    gap: 15px; /* Задає красиву і рівну відстань між кнопками */
+}
+
+.primary-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.primary-btn:hover { background-color: #0056b3; }
+
+.danger-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.danger-btn:hover { background-color: #c82333; }
+
+.add-set-btn {
+    width: 40px;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    margin-top: 0;
+}
+
+/* Картка вправи */
+.exercise-card {
+    width: 100%;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.set-inputs {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.input-field {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}

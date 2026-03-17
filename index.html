@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gymlog App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app-container">
+        
+        <section id="home-screen" class="screen active">
+            <h1>Gymlog</h1>
+            <p>Ready to break your own records?</p>
+            <div class="button-group">
+                <button id="start-workout-btn" class="primary-btn">Begin workout</button>
+                <button id="statistics-btn" class="primary-btn"> Statictics</button> 
+                <button id="history-btn" class="primary-btn">History</button> 
+            </div>   
+        </section>
+
+        <section id="workout-screen" class="screen hidden">
+            <h2>Training continues... 🔴</h2>
+            <div id="exercises-container">
+
+            </div>
+            <div class="add-exercise-pannel">
+                <button id="add-exercise-btn" class="primary-btn">Add Exercise</button>
+                <select id="exercise-selector">
+                    <option value="Bench Press">Bench Press</option>
+                    <option value="Seated Cable Row">Seated Cable Row</option>
+                    <option value="Biceps Curl">Biceps Curl</option>
+                    <option value="Deadlift">Deadlift</option>
+                    <option value="Overhead Press">Overhead Press</option>
+                    <option value="Triceps Pushdown">Triceps Pushdown</option>
+                </select>
+            </div>
+
+            <button id="finish-workout-btn" class="danger-btn">Log Workout</button>
+        </section>
+
+        <section id="statistics-screen" class="screen hidden">
+            <h2>Stats are going to be here soon</h2>
+
+            <button class="danger-btn exit">Exit</button>
+        </section>
+
+        <section id="history-screen" class="screen hidden">
+            <h2>Your workout history will be stored here soon</h2>
+
+            <button class="danger-btn exit">Exit</button>
+        </section>
+
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
