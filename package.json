@@ -1,0 +1,24 @@
+{
+  "name": "gymlog-app",
+  "version": "1.0.0",
+  "description": "Курсова робота з ОП/проєкт на КПІ Бойчука Андрія ІМ-53",
+  "main": "index.html",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sklokcm/Gymlog-App.git"
+  },
+  "keywords": [],
+  "author": "Andrii Boichuk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sklokcm/Gymlog-App/issues"
+  },
+  "homepage": "https://github.com/sklokcm/Gymlog-App#readme",
+  "dependencies": {
+    "gymlog-core": "file:gymlog-core"
+  }
+}

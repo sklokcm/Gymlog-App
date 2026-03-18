@@ -53,6 +53,14 @@
 
     </div>
 
-    <script src="main.js"></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "gymlog-core": "./node_modules/gymlog-core/index.js"
+            }
+        }
+    </script>
+
+    <script type="module" src="main.js"></script>
 </body>
 </html>

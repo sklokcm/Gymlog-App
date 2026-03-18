@@ -1,4 +1,3 @@
-/* Базові налаштування для мобільного вигляду */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #e9ecef;
@@ -9,7 +8,6 @@ body {
     min-height: 100vh;
 }
 
-/* Імітація екрана смартфона */
 #app-container {
     width: 100%;
     max-width: 400px;
@@ -24,7 +22,6 @@ body {
     flex-direction: column;
 }
 
-/* Логіка перемикання екранів */
 .screen {
     display: flex;
     flex-direction: column;
@@ -37,7 +34,6 @@ body {
     display: none !important;
 }
 
-/* Стилізація кнопок */
 button {
     padding: 15px 20px;
     border: none;
@@ -51,10 +47,10 @@ button {
 
 .button-group {
     width: 100%;
-    margin-top: auto; /* Тепер вся група кнопок падає вниз екрана */
+    margin-top: auto; 
     display: flex;
-    flex-direction: column; /* Ставить кнопки одна над одною */
-    gap: 15px; /* Задає красиву і рівну відстань між кнопками */
+    flex-direction: column; 
+    gap: 15px; 
 }
 
 .primary-btn {
@@ -79,7 +75,6 @@ button {
     margin-top: 0;
 }
 
-/* Картка вправи */
 .exercise-card {
     width: 100%;
     background-color: #f8f9fa;
@@ -100,4 +95,56 @@ button {
     padding: 10px;
     border: 1px solid #ced4da;
     border-radius: 5px;
+}
+
+.exercise-header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 15px;
+}
+
+.exercise-header h3 {
+    margin: 0; 
+}
+
+
+.add-set-btn {
+    width: 40px !important; 
+    height: 40px;
+    margin-top: 0 !important;
+    padding: 0;
+    border-radius: 50%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    line-height: 1;
+}
+
+
+.add-exercise-pannel {
+    display: flex;
+    flex-direction: row; 
+    gap: 10px; 
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#exercise-selector {
+    flex: 1; 
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ced4da;
+    font-size: 16px;
+    background-color: white;
+    cursor: pointer;
+    outline: none;
+}
+
+#add-exercise-btn {
+    width: auto; 
+    margin-top: 0;
+    padding: 12px 20px;
+    white-space: nowrap; 
 }
