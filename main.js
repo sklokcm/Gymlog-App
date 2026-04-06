@@ -1,4 +1,4 @@
-import { ExerciseFactory } from 'gymlog-core';
+import { ExerciseFactory, ExerciseHistory } from 'gymlog-core';
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -32,7 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     statsBtn.addEventListener('click', ()=>navigateTo(statisticsScreen));
 
-    historyBtn.addEventListener('click', ()=>navigateTo(historyScreen));
+    historyBtn.addEventListener('click', ()=>{RenderHistory();
+                                             navigateTo(historyScreen)});
 
     exitBtn[0].addEventListener('click', ()=>navigateTo(homeScreen));
     exitBtn[1].addEventListener('click', ()=>navigateTo(homeScreen));
@@ -87,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    //Collecting data
+    //Recording data
 
     finishBtn.addEventListener('click', CollectData);
 
@@ -117,14 +118,46 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         if (workoutData.length > 0) {
-            console.log("Workout", JSON.stringify(workoutData, null, 2));
-            alert("Sesion has been sucsesfully logged! P.S. Поки що дані не зберігаються, але виводяться у консоль");
-        
+            ExerciseHistory.saveWorkout(workoutData);
             document.getElementById('exercises-container').innerHTML = '';
         } 
         else {
             alert("Not a single set was done!");
         }
 
+    }
+
+
+    //Rendering history screen
+
+    function RenderHistory(){
+        const historyList = document.getElementById('history-list');
+        const data = ExerciseHistory.loadHistory();
+        
+        historyList.innerHTML=' ';
+
+        if (data.length===0){
+            historyList.innerHTML = "<p> It's empty( </p>";
+            return;
+        }
+
+        data.slice().reverse().forEach(workout=>{
+            const card = document.createElement('div');
+            card.classList.add('history-card');
+
+            card.innerHTML=`
+                <div class="history-header">
+                    <span class="history-date">${workout.date}</span>
+                </div>
+                <div class="history-body">
+                    <p><strong>Volume:</strong> ${workout.volume}</p>
+                    <p><strong>Sets:</strong> ${workout.sets}</p>
+                    <p><strong>Duration:</strong> ${workout.duration}</p>
+                </div>
+                <button class="secondary-btn view-details-btn" data-id="${workout.id}">View Details</button>
+            `
+
+            historyList.appendChild(card);
+        })
     }
 });
