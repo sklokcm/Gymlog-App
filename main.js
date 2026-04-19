@@ -1,4 +1,4 @@
-import { ExerciseFactory, ExerciseHistory } from 'gymlog-core';
+import { ExerciseFactory, ExerciseHistory, AsyncUtils } from 'gymlog-core';
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -130,20 +130,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //Rendering history screen
 
-    function RenderHistory(){
+    async function RenderHistory(){
         const historyList = document.getElementById('history-list');
         const data = ExerciseHistory.loadHistory();
         
-        historyList.innerHTML=' ';
+        historyList.innerHTML='';
 
         if (data.length===0){
             historyList.innerHTML = "<p> It's empty( </p>";
             return;
         }
 
-        data.slice().reverse().forEach(workout=>{
+        await AsyncUtils.asyncForEach(data.slice().reverse(), async(workout)=>{
             const card = document.createElement('div');
             card.classList.add('history-card');
+
+            //для плавної появи
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(10px)';
+            card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
 
             card.innerHTML=`
                 <div class="history-header">
@@ -158,7 +163,15 @@ document.addEventListener('DOMContentLoaded', () => {
             `
 
             historyList.appendChild(card);
-        })
+
+            //сама плавна поява
+            setTimeout(()=>{
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 8)
+
+            await new Promise(resolve => setTimeout(resolve, 300));//пауза між промальовуванням карток 
+        });
     }
 
     //"View Details Button"
