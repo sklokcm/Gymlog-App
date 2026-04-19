@@ -160,4 +160,53 @@ document.addEventListener('DOMContentLoaded', () => {
             historyList.appendChild(card);
         })
     }
+
+    //"View Details Button"
+
+    const historyList = document.getElementById('history-list');
+
+    historyList.addEventListener('click', showDetails);
+
+    function showDetails(e){
+        if(e.target.classList.contains('view-details-btn')){
+            const button = e.target;
+
+            const existingDetails = button.nextElementSibling;
+            if (existingDetails && existingDetails.classList.contains('workout-details-panel')) {
+                existingDetails.remove(); 
+                button.textContent = 'View Details';
+                return;
+            }
+
+            const workoutId = button.getAttribute('data-id');
+            const historyData = ExerciseHistory.loadHistory();
+
+            const workout = historyData.find(w => w.id.toString() === workoutId);
+            if(!workout) return;
+
+            const detailsDiv = document.createElement('div');
+
+            detailsDiv.classList.add('workout-details-panel');
+
+            detailsDiv.style.cssText = "margin-top: 15px; padding-top: 15px; border-top: 1px dashed #ccc;";
+        
+            let innerContent = '';
+            workout.exercises.forEach(exercise => {
+                innerContent += `<h4 style="margin: 10px 0 5px 0;">${exercise.name}</h4>`;
+                innerContent += `<ul style="margin: 0; padding-left: 20px; color: #555;">`;
+            
+                exercise.sets.forEach((set, index) => {
+                    innerContent += `<li>Set ${index + 1}: ${set.weight}kg x ${set.reps} reps</li>`;
+                });
+            
+                innerContent += `</ul>`;
+            });
+        
+            detailsDiv.innerHTML = innerContent;
+            button.parentElement.appendChild(detailsDiv);
+
+            button.textContent = "Hide Details";
+        }
+
+    }
 });
