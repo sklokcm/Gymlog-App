@@ -132,7 +132,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function RenderHistory(){
         const historyList = document.getElementById('history-list');
-        const data = ExerciseHistory.loadHistory();
+
+        historyList.innerHTML = '<div class="status-message">Loading history...</div>';
+
+        await new Promise(resolve => setTimeout(resolve, 300));
+
+        try{const data = ExerciseHistory.loadHistory();
         
         historyList.innerHTML='';
 
@@ -172,6 +177,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             await new Promise(resolve => setTimeout(resolve, 300));//пауза між промальовуванням карток 
         });
+        }catch(error){
+            console.error("Failed to render history:", error);
+        
+            historyList.innerHTML = `
+            <div class="error-container" style="text-align: center; color: #d9534f; padding: 20px;">
+                <p>Error loading history</p>
+                <small>${error.message}</small>
+                <br>
+                <button onclick="RenderHistory()" class="secondary-btn" style="margin-top: 10px;">Retry</button>
+            </div>`;
+        }
     }
 
     //"View Details Button"
