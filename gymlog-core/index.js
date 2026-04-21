@@ -42,6 +42,14 @@ export class ExerciseHistory{
     static loadHistory() {
         return JSON.parse(localStorage.getItem('gymlog-history')) || [];
     }
+
+    static deleteWorkout(id){
+        let history = this.loadHistory();
+
+        history=history.filter(workout=>workout.id.toString()!==id.toString());
+
+        localStorage.setItem('gymlog-history', JSON.stringify(history));
+    }
 }
 
 export class AsyncUtils{

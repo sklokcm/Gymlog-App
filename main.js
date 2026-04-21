@@ -158,6 +158,9 @@ document.addEventListener('DOMContentLoaded', () => {
             card.innerHTML=`
                 <div class="history-header">
                     <span class="history-date">${workout.date}</span>
+                    <button class="delete-workout-btn" data-id="${workout.id}">
+            Delete
+                    </button>
                 </div>
                 <div class="history-body">
                     <p><strong>Volume:</strong> ${workout.volume}</p>
@@ -237,5 +240,24 @@ document.addEventListener('DOMContentLoaded', () => {
             button.textContent = "Hide Details";
         }
 
+    }
+
+
+    //Видалення історії
+
+    historyList.addEventListener('click', deleteHistory);
+
+    function deleteHistory(e){
+        const target = e.target;
+        if (target.classList.contains('delete-workout-btn') || target.closest('.delete-workout-btn')){
+            const btn = target.closest('.delete-workout-btn');
+            const workoutId = btn.getAttribute('data-id');
+
+            if (confirm("Delete this workout?")) {
+            ExerciseHistory.deleteWorkout(workoutId);
+            
+            RenderHistory(); 
+        }
+        }
     }
 });

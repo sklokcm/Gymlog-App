@@ -206,3 +206,26 @@ button {
 .view-details-btn:hover {
     background-color: #e2e6ea;
 }
+
+
+.delete-button {
+  /* Базові стилі */
+  border: none;
+  padding: 12px 24px;
+  font-weight: bold;
+  border-radius: 10px; /* Скруглення кутів */
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease; /* Плавний перехід */
+
+  /* Колір фону та тексту, м'яка тінь */
+  background-color: var(--button-bg-color); /* Неназваний колір фону */
+  color: var(--button-text-color); /* Неназваний колір тексту */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* М'яка тінь */
+}
+
+/* Ефект при наведенні */
+.delete-button:hover {
+  /* Тінь стає глибшою при наведенні */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Глибша тінь */
+}
