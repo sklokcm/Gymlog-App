@@ -39,6 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
     exitBtn[1].addEventListener('click', ()=>navigateTo(homeScreen));
 
 
+
+
+
+
+
+
+
     //Adding exercises to a workout
     const selectExercise = document.getElementById('exercise-selector');
     const addExerciseBtn = document.getElementById('add-exercise-btn');
@@ -57,23 +64,36 @@ document.addEventListener('DOMContentLoaded', () => {
             <h3>${exerciseName}</h3>
             <button class="add-set-btn">+</button>
         </div>
-        
-        <div class="set-inputs">
-            <input type="number" placeholder="Weight (kg)" class="input-field">
-            <input type="number" placeholder="Reps" class="input-field">
+        <div class="set-container">
+            <div class="set-inputs">
+                <input type="number" placeholder="Weight (kg)" class="input-field">
+                <input type="number" placeholder="Reps" class="input-field">
+                <button class="remove-set-btn">-</button>
+            </div>
         </div>
+        <button class="remove-exercise-btn" > Delete Exercise </button> 
         `;
 
         exercisesContainer.appendChild(newExercise);
     }
 
+    //Deleting exercise from a workout
+    exercisesContainer.addEventListener('click', deleteExercise);
+    function deleteExercise(e){
+        if(e.target.classList.contains('remove-exercise-btn') || e.target.closest('.remove-exercise-btn')){
+            const card = e.target.closest('.exercise-card');
+            card.remove();
+        }
+    }
+
 
     //Adding sets
     exercisesContainer.addEventListener('click', addSet);
-
     function addSet(e){
         if(e.target.classList.contains('add-set-btn')){
             const currentExercise = e.target.closest('.exercise-card');
+
+            const setContainer = currentExercise.querySelector('.set-container');
 
             const newSet = document.createElement('div');
             newSet.classList.add('set-inputs');
@@ -81,11 +101,26 @@ document.addEventListener('DOMContentLoaded', () => {
             newSet.innerHTML=`
                 <input type="number" placeholder="Weight (kg)" class="input-field">
                 <input type="number" placeholder="Reps" class="input-field">
-            `
+                <button class="remove-set-btn">-</button>
+            `;
 
-            currentExercise.appendChild(newSet);
+            setContainer.appendChild(newSet);
         }
     }
+
+    //Deleting sets
+    exercisesContainer.addEventListener('click', deleteSet);
+    function deleteSet(e) {
+    if (e.target.classList.contains('remove-set-btn')) {
+        e.target.closest('.set-inputs').remove();
+        }
+    }
+
+
+
+
+
+
 
 
     //Recording data
@@ -243,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    //Видалення історії
+    //Deleting History
 
     historyList.addEventListener('click', deleteHistory);
 

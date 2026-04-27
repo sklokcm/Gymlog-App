@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #e9ecef;
@@ -25,9 +29,10 @@ body {
 .screen {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     text-align: center;
     flex-grow: 1;
+    width: 100%;
 }
 
 .hidden {
@@ -213,19 +218,71 @@ button {
   border: none;
   padding: 12px 24px;
   font-weight: bold;
-  border-radius: 10px; /* Скруглення кутів */
+  border-radius: 10px; 
   cursor: pointer;
   font-size: 16px;
-  transition: all 0.3s ease; /* Плавний перехід */
+  transition: all 0.3s ease; 
 
-  /* Колір фону та тексту, м'яка тінь */
-  background-color: var(--button-bg-color); /* Неназваний колір фону */
-  color: var(--button-text-color); /* Неназваний колір тексту */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* М'яка тінь */
+
+  background-color: var(--button-bg-color); 
+  color: var(--button-text-color); 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Ефект при наведенні */
+
 .delete-button:hover {
-  /* Тінь стає глибшою при наведенні */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Глибша тінь */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.delete-workout-btn:hover {
+    background-color: #ffe6e6; 
+    color: #d9534f; 
+}
+
+
+
+
+/* 2. Контейнер одного підходу */
+.set-inputs {
+    display: flex;
+    gap: 8px; /* Трохи зменшили проміжок */
+    margin-bottom: 10px;
+    width: 100%; /* Займає рівно ширину батька, не більше */
+}
+
+/* 3. Поля вводу (кілограми і повторення) */
+.input-field {
+    flex: 1; /* Ділять вільне місце порівну */
+    min-width: 0; /* МАГІЯ: Дозволяє інпутам звужуватися на малих екранах! */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+/* 4. Кнопка мінус */
+.remove-set-btn {
+    flex-shrink: 0; /* ЗАБОРОНЯЄМО кнопці сплющуватися в овал */
+    width: 38px;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* 5. Кнопка видалення вправи (щоб теж не вилазила) */
+.remove-exercise-btn {
+    width: 100%;
+    background-color: #f0f0f0;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#exercises-container {
+    width: 100%;
 }
