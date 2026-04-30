@@ -8,6 +8,56 @@ export class ExerciseFactory{
     }
 }
 
+
+export class ExerciseLibrary{
+    static exercises = [
+        {
+            id: "ex_1", 
+            name: "Bench Press", 
+            description: "Basic chest exercise", 
+            video: "https://www.youtube.com/watch?v=SCVCLChPQFY"
+        },
+        {
+            id: "ex_2", 
+            name: "Deadlift", 
+            description: "Basic legs and lowerback exercise", 
+            video: "https://www.youtube.com/watch?v=1ZXobu7JvvE"
+        }
+    ]
+    static getExercises(){
+        const saved = localStorage.getItem('library');
+        if(saved){
+            return JSON.parse(saved);
+        }
+        
+        localStorage.setItem('library', (JSON.stringify(this.exercises)));
+        return this.exercises;
+    }
+    static saveNewExercise(name, description, video){
+        const exercises = this.getExercises();
+
+        const exists = exercises.some(ex => ex.name.toLowerCase() === name.toLowerCase());
+        if(!exists){
+            exercises.push({
+                id: "ex_" + Date.now(),
+                name: name,
+                description: description,
+                video: video || "no link"
+            })
+            localStorage.setItem('library', JSON.stringify(exercises));
+            return true;
+        }
+        return false;
+    }
+    static deleteExercise(id){
+        let exercises = this.getExercises();
+        exercises = exercises.filter(ex => ex.id !== id);
+        localStorage.setItem('library', JSON.stringify(exercises));
+    }
+    
+    
+}
+
 export class ExerciseHistory{
     static saveWorkout(workoutData){
         const history = JSON.parse(localStorage.getItem('gymlog-history')) || [];

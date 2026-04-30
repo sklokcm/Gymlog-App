@@ -14,7 +14,8 @@
             <p>Ready to break your own records?</p>
             <div class="button-group">
                 <button id="start-workout-btn" class="primary-btn">Begin workout</button>
-                <button id="statistics-btn" class="primary-btn"> Statictics</button> 
+                <button id="library-btn" class="primary-btn">Library</button>
+                <button id="statistics-btn" class="primary-btn">Statictics</button> 
                 <button id="history-btn" class="primary-btn">History</button> 
             </div>   
         </section>
@@ -29,18 +30,19 @@
             </div>
             <div class="add-exercise-pannel">
                 <button id="add-exercise-btn" class="primary-btn">Add Exercise</button>
-                <select id="exercise-selector">
-                    <option value="Bench Press">Bench Press</option>
-                    <option value="Seated Cable Row">Seated Cable Row</option>
-                    <option value="Biceps Curl">Biceps Curl</option>
-                    <option value="Deadlift">Deadlift</option>
-                    <option value="Overhead Press">Overhead Press</option>
-                    <option value="Triceps Pushdown">Triceps Pushdown</option>
-                </select>
+                <input type="text" id="exercises-search" class="primary-btn" list="exercise-datalist" placeholder="Searrch for an exercise">
+                <datalist id="exercise-datalist"></datalist>
             </div>
 
             <button id="finish-workout-btn" class="danger-btn">Log Workout</button>
         </section>
+
+
+        <section id="library-screen" class="screen hidden"> 
+            <h2>Placeholder</h2>
+            <button class="danger-btn exit">Exit</button>
+        </section>
+
 
         <section id="statistics-screen" class="screen hidden">
             <h2>Stats are going to be here soon</h2>

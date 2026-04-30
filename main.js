@@ -1,4 +1,4 @@
-import { ExerciseFactory, ExerciseHistory, AsyncUtils } from 'gymlog-core';
+import { ExerciseFactory, ExerciseHistory, AsyncUtils, ExerciseLibrary } from 'gymlog-core';
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -7,12 +7,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const workoutScreen = document.getElementById('workout-screen');
     const statisticsScreen = document.getElementById('statistics-screen');
     const historyScreen = document.getElementById('history-screen');
+    const libraryScreen = document.getElementById('library-screen');
 
     
     const startBtn = document.getElementById('start-workout-btn');
     const finishBtn = document.getElementById('finish-workout-btn');
     const statsBtn = document.getElementById('statistics-btn');
     const historyBtn = document.getElementById('history-btn');
+    const libraryBtn = document.getElementById('library-btn')
     const exitBtn = document.getElementsByClassName('exit');
 
     function navigateTo(screenToShow) {
@@ -35,19 +37,32 @@ document.addEventListener('DOMContentLoaded', () => {
     historyBtn.addEventListener('click', ()=>{RenderHistory();
                                              navigateTo(historyScreen)});
 
+    libraryBtn.addEventListener('click', ()=>{navigateTo(libraryScreen)});
+
     exitBtn[0].addEventListener('click', ()=>navigateTo(homeScreen));
     exitBtn[1].addEventListener('click', ()=>navigateTo(homeScreen));
+    exitBtn[2].addEventListener('click', ()=>navigateTo(homeScreen));
 
 
 
 
+    function RenderSearchList(){
+        const exercises = ExerciseLibrary.getExercises();
+        const datalist = document.getElementById('exercise-datalist');
 
+        datalist.innerHTML="";
 
-
+        exercises.forEach(ex =>{
+            const option = document.createElement('option');
+            option.value = ex.name;
+            datalist.appendChild(option);
+        });
+    }
+    RenderSearchList();
 
 
     //Adding exercises to a workout
-    const selectExercise = document.getElementById('exercise-selector');
+    const selectExercise = document.getElementById('exercises-search');
     const addExerciseBtn = document.getElementById('add-exercise-btn');
     const exercisesContainer = document.getElementById('exercises-container');
 
