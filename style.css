@@ -286,3 +286,13 @@ button {
 #exercises-container {
     width: 100%;
 }
+
+#add-exercise-form{
+    width: 100%; 
+    background: #f8f9fa; 
+    padding: 15px; 
+    border-radius: 12px; 
+    margin-bottom: 20px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+    text-align: left;
+}
