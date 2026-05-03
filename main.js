@@ -1,4 +1,4 @@
-import { ExerciseFactory, ExerciseHistory, AsyncUtils, ExerciseLibrary } from 'gymlog-core';
+import { ExerciseFactory, ExerciseHistory, AsyncUtils, ExerciseLibrary, workoutDataStreamer } from 'gymlog-core';
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -32,7 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
         navigateTo(homeScreen);
     });
 
-    statsBtn.addEventListener('click', ()=>navigateTo(statisticsScreen));
+    statsBtn.addEventListener('click', ()=>{renderStatistics(),
+                                            navigateTo(statisticsScreen)});
 
     historyBtn.addEventListener('click', ()=>{RenderHistory();
                                              navigateTo(historyScreen)});
@@ -385,6 +386,34 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    
+    //Rendering statistics
+    async function renderStatistics(){
+        statisticsScreen.innerHTML = '<h2>Analizing data...</h2>';
+        const totalLifetimeVolume=0;
+        const totalWorkouts=0;
+        const stream =workoutDataStreamer.getWorkoutStream();
+        try{
+            for await (const workout of stream) {
+                totalLifetimeVolume += workout.volume;
+                totalWorkouts++;
+            }
+            statisticsScreen.innerHTML = `
+                <h2>Statistics</h2>
+                <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: left; width: 100%; margin-bottom: 20px;">
+                    <p style="font-size: 1.2rem; margin-bottom: 10px;"><strong>Total Workouts:</strong> <span style="color: #007bff;">${totalWorkouts}</span></p>
+                    <p style="font-size: 1.2rem; margin: 0;"><strong>Total Volume Lifted:</strong> <span style="color: #28a745;">${totalLifetimeVolume} kg</span></p>
+                </div>
+                <button class="danger-btn exit">Exit</button>
+            `;
+            statisticsScreen.querySelector('.exit').addEventListener('click', () => navigateTo(homeScreen));
+        }
+        catch{
+            statisticsScreen.innerHTML = '<h2>Помилка обчислення статистики</h2><button class="danger-btn exit">Exit</button>';
+            statisticsScreen.querySelector('.exit').addEventListener('click', () => navigateTo(homeScreen));
+        }
+    }
 
 });
 
