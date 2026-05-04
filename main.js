@@ -1,4 +1,4 @@
-import { ExerciseFactory, ExerciseHistory, AsyncUtils, ExerciseLibrary, workoutDataStreamer } from 'gymlog-core';
+import { ExerciseFactory, ExerciseHistory, AsyncUtils, ExerciseLibrary, workoutDataStreamer, MockFitnessTracker } from 'gymlog-core';
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -26,7 +26,27 @@ document.addEventListener('DOMContentLoaded', () => {
         screenToShow.classList.remove('hidden');
     }
 
-    startBtn.addEventListener('click', () => navigateTo(workoutScreen));
+    
+    let workoutTimerInterval;
+    let workoutSeconds;
+    const timerDisplay = document.getElementById('active-workout-timer');
+    const fitnessTracker = new MockFitnessTracker;
+
+    startBtn.addEventListener('click', () => {navigateTo(workoutScreen),
+        workoutSeconds = 0;
+        timerDisplay.textContent = "00:00:00";
+        if(workoutTimerInterval) clearInterval(workoutTimerInterval);
+
+        workoutTimerInterval = setInterval(()=>{
+            workoutSeconds++;
+            const h = String(Math.floor(workoutSeconds / 3600)).padStart(2, '0');
+            const m = String(Math.floor((workoutSeconds % 3600) / 60)).padStart(2, '0');
+            const s = String(workoutSeconds % 60).padStart(2, '0');
+            timerDisplay.textContent = `${h}:${m}:${s}`;
+        }, 1000);
+
+        fitnessTracker.startTracking();
+    });
 
     finishBtn.addEventListener('click', () => {
         navigateTo(homeScreen);
@@ -170,8 +190,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         if (workoutData.length > 0) {
-            ExerciseHistory.saveWorkout(workoutData);
+            clearInterval(workoutTimerInterval);
+            const time = timerDisplay.textContent;
+            const heartRate = fitnessTracker.stopTracking();
+
+            ExerciseHistory.saveWorkout(workoutData, time, heartRate);
+
             document.getElementById('exercises-container').innerHTML = '';
+            timerDisplay.textContent = "00:00:00";
         } 
         else {
             alert("Not a single set was done!");
@@ -218,6 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p><strong>Volume:</strong> ${workout.volume}</p>
                     <p><strong>Sets:</strong> ${workout.sets}</p>
                     <p><strong>Duration:</strong> ${workout.duration}</p>
+                    <p><strong>Avg HR:</strong>  ${workout.avgHr} bpm</p>
                 </div>
                 <button class="secondary-btn view-details-btn" data-id="${workout.id}">View Details</button>
             `
