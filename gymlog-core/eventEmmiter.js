@@ -4,7 +4,7 @@ export class EventEmitter{
     subscribe(name, fn){
         const event = this.events[name];
         if(event) event.push(fn);
-        else this.event[name] = [fn];
+        else this.events[name] = [fn];
     }
     unsubscribe(name, fn){
         const event = this.events[name];
@@ -17,3 +17,5 @@ export class EventEmitter{
         for (const listener of event) listener(...data);
     }
 }
+
+export const appEvent = new EventEmitter();

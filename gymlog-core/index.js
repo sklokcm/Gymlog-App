@@ -1,4 +1,6 @@
-import { EventEmitter } from "./eventEmmiter";
+export { EventEmitter, appEvent } from "./eventEmmiter.js";
+
+
 
 export class ExerciseFactory{
     static create(name, sets){

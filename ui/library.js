@@ -1,4 +1,4 @@
-import { ExerciseLibrary } from "gymlog-core";
+import { ExerciseLibrary, appEvent } from "gymlog-core";
 
 const libraryCardContainer = document.getElementById('library-cards-container');
 const saveNewExBtn = document.getElementById('save-new-ex-btn');
@@ -60,8 +60,8 @@ export function addExerciseToLibrary(){
         descInput.value="";
         videoInput.value="";
 
-        renderLibrary();   
-        RenderSearchList();});
+        renderLibrary();});
+        appEvent.emit('libraryUpdated', {action: 'added', name: name});
 }
 
 export function deleteExerciseFromLibrary(){
@@ -71,7 +71,7 @@ export function deleteExerciseFromLibrary(){
             if (confirm("Delete this exercise?")) {
                 ExerciseLibrary.deleteExercise(exId);
                 renderLibrary();
-                RenderSearchList();
+                appEvent.emit('libraryUpdated', {action: 'deleted', name: name});
             }
         }
 });
