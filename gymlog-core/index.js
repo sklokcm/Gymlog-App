@@ -1,3 +1,5 @@
+import { EventEmitter } from "./eventEmmiter";
+
 export class ExerciseFactory{
     static create(name, sets){
         return {

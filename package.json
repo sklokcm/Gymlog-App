@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/sklokcm/Gymlog-App#readme",
   "dependencies": {
-    "gymlog-core": "file:gymlog-core"
+    "gymlog-core": "file:gymlog-core",
+    "ui": "file:ui"
   }
 }
