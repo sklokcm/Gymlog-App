@@ -242,26 +242,23 @@ button {
 
 
 
-/* 2. Контейнер одного підходу */
 .set-inputs {
     display: flex;
-    gap: 8px; /* Трохи зменшили проміжок */
+    gap: 8px;
     margin-bottom: 10px;
-    width: 100%; /* Займає рівно ширину батька, не більше */
+    width: 100%; 
 }
 
-/* 3. Поля вводу (кілограми і повторення) */
 .input-field {
-    flex: 1; /* Ділять вільне місце порівну */
-    min-width: 0; /* МАГІЯ: Дозволяє інпутам звужуватися на малих екранах! */
+    flex: 1; 
+    min-width: 0; 
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
 }
 
-/* 4. Кнопка мінус */
 .remove-set-btn {
-    flex-shrink: 0; /* ЗАБОРОНЯЄМО кнопці сплющуватися в овал */
+    flex-shrink: 0; 
     width: 38px;
     background-color: #f0f0f0;
     border: none;
@@ -271,7 +268,6 @@ button {
     cursor: pointer;
 }
 
-/* 5. Кнопка видалення вправи (щоб теж не вилазила) */
 .remove-exercise-btn {
     width: 100%;
     background-color: #f0f0f0;

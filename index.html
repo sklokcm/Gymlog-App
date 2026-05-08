@@ -29,12 +29,13 @@
 
             </div>
             <div class="add-exercise-pannel">
+                <select id="exercises-search" class="input-field"></select>
                 <button id="add-exercise-btn" class="primary-btn">Add Exercise</button>
-                <input type="text" id="exercises-search" class="primary-btn" list="exercise-datalist" placeholder="Searrch for an exercise">
-                <datalist id="exercise-datalist"></datalist>
             </div>
-
-            <button id="finish-workout-btn" class="danger-btn">Log Workout</button>
+            <div style="display: flex; gap: 12px">
+                <button class="danger-btn exit" style="background-color: darkgray;">Exit</button>
+                <button id="finish-workout-btn" class="danger-btn">Log Workout</button>
+            </div>
         </section>
 
 
