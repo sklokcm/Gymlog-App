@@ -76,15 +76,16 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(workoutTimerInterval);
         const time = timerDisplay.textContent;
         const heartRate = fitnessTracker.stopTracking();
-
-        ExerciseHistory.saveWorkout(data, time, heartRate);
         timerDisplay.textContent = "00:00:00";
         isWorkoutActive = false;
         startBtn.textContent = "Begin workout";
         startBtn.style.backgroundColor = "";
-
-        appEvent.emit("historyUpdated", {action: "added"});
-        alert("Workout saved!");
+        if(data!==null){
+            ExerciseHistory.saveWorkout(data, time, heartRate);
+            appEvent.emit("historyUpdated", {action: "added"});
+            alert("Workout saved!");
+        }
+        
         navigateTo(homeScreen);
     });
 

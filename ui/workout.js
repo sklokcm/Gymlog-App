@@ -115,6 +115,7 @@ export function collectData(onFinish){
         } 
         else {
             alert("Not a single set was done!");
+            onFinish(null);
         }
     });
 }
