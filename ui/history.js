@@ -46,7 +46,7 @@ export async function renderHistory(customData = null){
                 card.style.transform = 'translateY(0)';
             }, 8)
 
-            await new Promise(resolve => setTimeout(resolve, 300));//пауза між промальовуванням карток 
+            await new Promise(resolve => setTimeout(resolve, 150));//пауза між промальовуванням карток 
         });
     }catch(error){
         console.error("Failed to render history:", error);        
@@ -129,23 +129,38 @@ export function retryHistory() {
 
 
 export function sortedHistory() {
-   document.getElementById('sort-volume-btn').addEventListener('click', () => {
+    const sortBtn = document.getElementById('sort-btn');
+    let isSortedByVolume = false;
+
+    sortBtn.addEventListener('click', () => {
         const data = ExerciseHistory.loadHistory();
         if (data.length === 0) return alert("History is empty!");
+        isSortedByVolume  = !isSortedByVolume;
 
-        const queue = new PriorityQueue();
 
-            
-        data.forEach(workout => {
-            queue.enqueue(workout, workout.volume);
-        });
+        if(isSortedByVolume){
+            const queue = new PriorityQueue();
 
-        const sortedWorkouts = [];
+            data.forEach(workout => {
+            queue.enqueue(workout, workout.volume);});
 
-        while (queue.items.length>0) {
-            sortedWorkouts.push(queue.dequeue('highest'));
+            const sortedWorkouts = [];
+
+            while (queue.items.length>0) {
+                sortedWorkouts.push(queue.dequeue('highest'));
+            }
+
+            renderHistory(sortedWorkouts);
+            sortBtn.textContent = "Sort by Date";
+            sortBtn.style.backgroundColor = "orange";
         }
-
-        renderHistory(sortedWorkouts);
+        else{
+            renderHistory(null);
+            sortBtn.textContent = "Sort by Volume";
+            sortBtn.style.backgroundColor = "";
+        }
     });
-};
+}
+        
+        
+
