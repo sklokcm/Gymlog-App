@@ -1,5 +1,6 @@
 export { EventEmitter, appEvent } from "./eventEmmiter.js";
 
+import { createID } from "./idGenerator.js";
 
 
 export class ExerciseFactory{
@@ -107,56 +108,8 @@ export class ExerciseHistory{
     }
 }
 
-export class AsyncUtils{
-    static async asyncForEach(array, asyncCallback){
-        for(let i = 0; i<array.length; i++){
-            await asyncCallback(array[i], i, array);
-        }
-    }
-}
-
-export class workoutDataStreamer{
-    static async *getWorkoutStream(){
-        const history = JSON.parse(localStorage.getItem('gymlog-history'))||[];
-        for(const workout of history){
-            await new Promise(resolve => setTimeout(resolve, 10));
-            yield workout;
-        }
-    }
-}
 
 
-export class MockFitnessTracker{
-    constructor(){
-        this.heartRates = [];
-        this.isTracking = false;
-    }
 
-    async *createHeartRateStream(){
-        while(this.isTracking){
-            await new Promise(resolve=>setTimeout(resolve, 2000));
 
-            if(!this.isTracking) break;
 
-            const currentHr = Math.floor(Math.random() * 51) + 110;
-
-            yield currentHr;
-        }
-    }
-
-    async startTracking(){
-        this.isTracking = true;
-        this.heartRates = [];
-
-        for await(const hr of this.createHeartRateStream()){
-            this.heartRates.push(hr);
-        }
-    }
-
-    stopTracking(){
-        this.isTracking = false;
-        if(this.heartRates.length === 0 ) return 0;
-        const sum = this.heartRates.reduce((a, b) => a + b, 0);
-        return Math.round(sum / this.heartRates.length);
-    }
-}

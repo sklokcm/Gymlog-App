@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
             appEvent.emit("historyUpdated", {action: "added"});
             alert("Workout saved!");
         }
-        
+    
         navigateTo(homeScreen);
     });
 
