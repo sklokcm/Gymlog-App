@@ -1,6 +1,8 @@
 export function* createID(){
     let counter = 1;
     while(true){
-        yield `workout_${Date.now()}_${counter}`;
+        yield `workout_${Date.now()}_${counter++}`;
     }
 }
+
+export const workoutIdGen = createID();

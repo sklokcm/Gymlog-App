@@ -162,5 +162,50 @@ export function sortedHistory() {
     });
 }
         
-        
+
+export function historyFilter(){
+    const filterBtn = document.getElementById('filter-history-btn');
+    let abortController = null;
+    let isSearching = false;
+
+    filterBtn.addEventListener('click', async () => {       
+        if (isSearching) {
+            if (abortController) {
+                abortController.abort(); 
+            }
+            return; 
+        }
+
+        const data = ExerciseHistory.loadHistory();
+        if (data.length === 0) return alert("History is empty!");
+
+        isSearching = true;
+        abortController = new AbortController();
+            
+        filterBtn.textContent = "Cancel Search";
+        filterBtn.style.backgroundColor = "#d9534f"; 
+        document.getElementById('history-list').innerHTML = '<div class="status-message">Searching heavy workouts...</div>';
+
+        try {
+            const heavyWorkouts = await AsyncUtils.filterAsync(data, async (workout) => {
+                await new Promise(resolve => setTimeout(resolve, 500));
+                return workout.volume >= 6000;
+            }, { signal: abortController.signal });
+
+            renderHistory(heavyWorkouts);
+
+        } catch (error) {
+            if (error.message.includes("aborted")) {
+                renderHistory(null);
+            } else {
+                console.error("Filter error:", error);
+            }
+        } finally {
+            isSearching = false;
+            abortController = null;
+            filterBtn.textContent = "Find Heavy Workouts";
+            filterBtn.style.backgroundColor = ""; 
+        }
+    });
+}
 

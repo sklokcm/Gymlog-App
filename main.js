@@ -2,7 +2,7 @@ import { ExerciseFactory, ExerciseHistory, AsyncUtils, ExerciseLibrary, workoutD
 import { renderStatistics, renderLibrary, addExerciseToLibrary, deleteExerciseFromLibrary, 
     renderHistory, viewDetails, deleteWorkout, retryHistory, 
     renderSearchList, addExercise, deleteExercise, editSets, collectData,
-    sortedHistory} from 'ui';
+    sortedHistory, historyFilter} from 'ui';
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     deleteWorkout();
     retryHistory();
     sortedHistory();
+    historyFilter()
 
     addExerciseToLibrary();
     deleteExerciseFromLibrary();

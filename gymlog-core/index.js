@@ -4,8 +4,7 @@ export {workoutDataStreamer} from "./workoutDataStream.js";
 export {PriorityQueue} from "./priorityQueue.js";
 export {createID} from "./idGenerator.js";
 export {MockFitnessTracker} from "./mockFitnessTracker.js"
-
-import { createID } from "./idGenerator.js";
+import { createID, workoutIdGen } from "./idGenerator.js";
 
 
 export class ExerciseFactory{
@@ -85,7 +84,7 @@ export class ExerciseHistory{
         const formattedDate = new Date().toLocaleString('en-US', date);
 
         const workoutSummary = {
-            id: Date.now(),
+            id: workoutIdGen.next().value,
             date: formattedDate,
             volume: volume,
             sets: sets,
@@ -107,7 +106,7 @@ export class ExerciseHistory{
     static deleteWorkout(id){
         let history = this.loadHistory();
 
-        history=history.filter(workout=>workout.id.toString()!==id.toString());
+        history=history.filter(workout=>workout.id !== id);
 
         localStorage.setItem('gymlog-history', JSON.stringify(history));
     }
