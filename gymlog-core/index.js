@@ -1,4 +1,9 @@
 export { EventEmitter, appEvent } from "./eventEmmiter.js";
+export {AsyncUtils} from "./asyncUtils.js"
+export {workoutDataStreamer} from "./workoutDataStream.js";
+export {PriorityQueue} from "./priorityQueue.js";
+export {createID} from "./idGenerator.js";
+export {MockFitnessTracker} from "./mockFitnessTracker.js"
 
 import { createID } from "./idGenerator.js";
 

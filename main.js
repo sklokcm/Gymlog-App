@@ -1,7 +1,8 @@
 import { ExerciseFactory, ExerciseHistory, AsyncUtils, ExerciseLibrary, workoutDataStreamer, MockFitnessTracker, appEvent } from 'gymlog-core';
 import { renderStatistics, renderLibrary, addExerciseToLibrary, deleteExerciseFromLibrary, 
     renderHistory, viewDetails, deleteWorkout, retryHistory, 
-    renderSearchList, addExercise, deleteExercise, editSets, collectData} from 'ui';
+    renderSearchList, addExercise, deleteExercise, editSets, collectData,
+    sortedHistory} from 'ui';
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -44,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     viewDetails();
     deleteWorkout();
     retryHistory();
+    sortedHistory();
 
     addExerciseToLibrary();
     deleteExerciseFromLibrary();

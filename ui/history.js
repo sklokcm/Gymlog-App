@@ -1,20 +1,21 @@
-import { ExerciseHistory, AsyncUtils, appEvent } from "gymlog-core";
+import { ExerciseHistory, AsyncUtils, appEvent, PriorityQueue } from "gymlog-core";
 
 const historyList = document.getElementById('history-list');
 
-export async function renderHistory(){
+export async function renderHistory(customData = null){
     historyList.innerHTML = '<div class="status-message">Loading history...</div>';
 
     await new Promise(resolve => setTimeout(resolve, 300));
 
     try{
-        const data = ExerciseHistory.loadHistory();
+        const data = customData || ExerciseHistory.loadHistory();
         historyList.innerHTML='';
         if (data.length===0){
             historyList.innerHTML = "<p> It's empty( </p>";
             return;
         }
-        await AsyncUtils.asyncForEach(data.slice().reverse(), async(workout)=>{
+        const dataToRender = customData ? data : data.slice().reverse();
+        await AsyncUtils.asyncForEach(dataToRender, async(workout)=>{
             const card = document.createElement('div');
             card.classList.add('history-card');
 
@@ -125,4 +126,26 @@ export function retryHistory() {
     });
 }   
 
-    
+
+
+export function sortedHistory() {
+   document.getElementById('sort-volume-btn').addEventListener('click', () => {
+        const data = ExerciseHistory.loadHistory();
+        if (data.length === 0) return alert("History is empty!");
+
+        const queue = new PriorityQueue();
+
+            
+        data.forEach(workout => {
+            queue.enqueue(workout, workout.volume);
+        });
+
+        const sortedWorkouts = [];
+
+        while (queue.items.length>0) {
+            sortedWorkouts.push(queue.dequeue('highest'));
+        }
+
+        renderHistory(sortedWorkouts);
+    });
+};
