@@ -8,6 +8,7 @@ import { createID, workoutIdGen } from "./idGenerator.js";
 import {apiProxy} from "./apiProxy.js";
 import { api } from "./database.js";
 import { memoize } from "./memoization.js";
+import { withLogging } from "./loggingDecorators.js";
 
 
 export class ExerciseFactory{
@@ -91,7 +92,9 @@ export class ExerciseHistory{
     }
 }
 
-
+ExerciseHistory.loadHistory = withLogging(ExerciseHistory.loadHistory, "Fetching history from database");
+ExerciseHistory.saveWorkout = withLogging(ExerciseHistory.saveWorkout, "Saving workout to database");
+ExerciseHistory.deleteWorkout = withLogging(ExerciseHistory.deleteWorkout, "Deleting workout");
 
 
 
