@@ -15,7 +15,8 @@ export async function renderStatistics(){
                 totalLifetimeVolume += workout.volume;
                 totalWorkouts++;
 
-                const workoutDate = new Date(workout.id);
+                const cleanDateString = workout.date.replace(' at', ', ') + ` ${currentYear}`;
+                const workoutDate = new Date(cleanDateString);
                 if(workoutDate.getFullYear() === currentYear && workoutDate.getMonth()=== currentMonth){
                     monthHistory.push(workoutDate.getDate());
                 }

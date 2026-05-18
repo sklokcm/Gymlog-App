@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         navigateTo(workoutScreen)
     });
 
-    collectData((data)=>{
+    collectData(async (data)=>{
         clearInterval(workoutTimerInterval);
         const time = timerDisplay.textContent;
         const heartRate = fitnessTracker.stopTracking();
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         startBtn.textContent = "Begin workout";
         startBtn.style.backgroundColor = "";
         if(data!==null){
-            ExerciseHistory.saveWorkout(data, time, heartRate);
+            await ExerciseHistory.saveWorkout(data, time, heartRate);
             appEvent.emit("historyUpdated", {action: "added"});
             alert("Workout saved!");
         }
@@ -121,9 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     appEvent.subscribe('libraryUpdated', updateDatalist);
 
-    setTimeout(() => {
-    appEvent.unsubscribe('libraryUpdated', updateDatalist);
-    }, 10000);
 });
 
 

@@ -47,7 +47,9 @@ const descInput = document.getElementById('new-ex-desc');
 const videoInput = document.getElementById('new-ex-video');
 
 export function addExerciseToLibrary(){
-    saveNewExBtn.addEventListener('click', ()=>{
+    saveNewExBtn.addEventListener('click', async (e)=>{
+
+        e.preventDefault();
         const name = nameInput.value.trim();
         const desc = descInput.value.trim();
         const video = videoInput.value.trim();
@@ -55,13 +57,14 @@ export function addExerciseToLibrary(){
         alert("Input exersice name!!!");
         return;
         }   
-        ExerciseLibrary.saveNewExercise(name, desc, video);
+        await ExerciseLibrary.saveNewExercise(name, desc, video);
         nameInput.value="";
         descInput.value="";
         videoInput.value="";
 
-        renderLibrary();});
+        await renderLibrary();
         appEvent.emit('libraryUpdated', {action: 'added', name: name});
+    });     
 }
 
 export function deleteExerciseFromLibrary(){

@@ -59,6 +59,42 @@
       "name": "Deadlift",
       "description": "Basic legs and lowerback exercise",
       "video": "https://www.youtube.com/watch?v=1ZXobu7JvvE"
+    },
+    {
+      "id": "vpnODx7NpVM",
+      "name": "Biceps Curl",
+      "description": "",
+      "video": "no link"
+    },
+    {
+      "id": "TgX7mnhHits",
+      "name": "Overhead Press",
+      "description": "",
+      "video": "no link"
+    },
+    {
+      "id": "975XLIIQufE",
+      "name": "Triceps Rope Pulldown",
+      "description": "",
+      "video": "no link"
+    },
+    {
+      "id": "rPm4Wu2WGng",
+      "name": "Seated Cable Row",
+      "description": "",
+      "video": "no link"
+    },
+    {
+      "id": "L1-X4N9bHP8",
+      "name": "Lateral Raise",
+      "description": "",
+      "video": "no link"
+    },
+    {
+      "id": "gGOPpHqbq3U",
+      "name": "Preacher Curl",
+      "description": "",
+      "video": "no link"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

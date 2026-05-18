@@ -4,7 +4,6 @@ export function withLogging(fn, actionName = "Action") {
         const startTime = performance.now();
 
         try {
-            // Викликаємо оригінальну функцію
             const result = await fn(...args);
             
             const endTime = performance.now();
