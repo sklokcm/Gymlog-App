@@ -7,6 +7,7 @@ export {MockFitnessTracker} from "./mockFitnessTracker.js"
 import { createID, workoutIdGen } from "./idGenerator.js";
 import {apiProxy} from "./apiProxy.js";
 import { api } from "./database.js";
+import { memoize } from "./memoization.js";
 
 
 export class ExerciseFactory{
@@ -20,9 +21,13 @@ export class ExerciseFactory{
 }
 
 
+
+const memoizedGetAllExercises = memoize(async () => {
+    return await apiProxy.getAllExercises();
+});
 export class ExerciseLibrary{
     static async getExercises(){
-        return await apiProxy.getAllExercises();
+        return await memoizedGetAllExercises();
     }
     static async saveNewExercise(name, description, video){
         const exercises = await this.getExercises();
@@ -36,15 +41,16 @@ export class ExerciseLibrary{
                 video: video || "no link"
             };
             await apiProxy.saveExercise(NewExercise);
+
+            memoizedGetAllExercises.clearCache();
             return true;
         }
         return false;
     }
     static async deleteExercise(id){
-        return await apiProxy.deleteExercise(id);
+        await apiProxy.deleteExercise(id);
+        memoizedGetAllExercises.clearCache();
     }
-    
-    
 }
 
 export class ExerciseHistory{

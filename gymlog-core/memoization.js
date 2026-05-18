@@ -3,7 +3,7 @@ export function memoize(fn, options = { limit: 5 }) {
     const limit = options.limit;
 
     
-    return async function(...args) {
+    const memoizedFn =  async function(...args) {
         const key = JSON.stringify(args);
 
         if (cache.has(key)) {
@@ -25,4 +25,9 @@ export function memoize(fn, options = { limit: 5 }) {
 
         return result;
     };
+    memoizedFn.clearCache = () => {
+        cache.clear();
+    };
+
+    return memoizedFn;
 }
