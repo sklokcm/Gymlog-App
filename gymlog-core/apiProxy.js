@@ -1,4 +1,4 @@
-import { api } from './databaseService.js';
+import { api } from './database.js';
 
 export const apiProxy = new Proxy(api, {
     get(target, prop) {

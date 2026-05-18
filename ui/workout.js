@@ -5,8 +5,8 @@ const addExerciseBtn = document.getElementById('add-exercise-btn');
 const exercisesContainer = document.getElementById('exercises-container');
 const finishBtn = document.getElementById('finish-workout-btn');
 
-export function renderSearchList(){
-    const exercises = ExerciseLibrary.getExercises();
+export async function renderSearchList(){
+    const exercises = await ExerciseLibrary.getExercises();
     selectExercise.innerHTML="";
     if(exercises.length===0){
         selectExercise.innerHTML = `<option value="" disabled selected>Library is empty</option>`;

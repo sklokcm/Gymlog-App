@@ -13,8 +13,8 @@ function getEmbedUrl(url){
     return null;
 }
 
-export function renderLibrary(){
-    const exercises = ExerciseLibrary.getExercises();
+export async function renderLibrary(){
+    const exercises = await ExerciseLibrary.getExercises();
     libraryCardContainer.innerHTML='';
     exercises.slice().reverse().forEach(ex=>{
         const card = document.createElement('div');

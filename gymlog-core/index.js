@@ -5,6 +5,8 @@ export {PriorityQueue} from "./priorityQueue.js";
 export {createID} from "./idGenerator.js";
 export {MockFitnessTracker} from "./mockFitnessTracker.js"
 import { createID, workoutIdGen } from "./idGenerator.js";
+import {apiProxy} from "./apiProxy.js";
+import { api } from "./database.js";
 
 
 export class ExerciseFactory{
@@ -19,57 +21,34 @@ export class ExerciseFactory{
 
 
 export class ExerciseLibrary{
-    static exercises = [
-        {
-            id: "ex_1", 
-            name: "Bench Press", 
-            description: "Basic chest exercise", 
-            video: "https://www.youtube.com/watch?v=SCVCLChPQFY"
-        },
-        {
-            id: "ex_2", 
-            name: "Deadlift", 
-            description: "Basic legs and lowerback exercise", 
-            video: "https://www.youtube.com/watch?v=1ZXobu7JvvE"
-        }
-    ]
-    static getExercises(){
-        const saved = localStorage.getItem('library');
-        if(saved){
-            return JSON.parse(saved);
-        }
-        
-        localStorage.setItem('library', (JSON.stringify(this.exercises)));
-        return this.exercises;
+    static async getExercises(){
+        return await apiProxy.getAllExercises();
     }
-    static saveNewExercise(name, description, video){
-        const exercises = this.getExercises();
+    static async saveNewExercise(name, description, video){
+        const exercises = await this.getExercises();
 
         const exists = exercises.some(ex => ex.name.toLowerCase() === name.toLowerCase());
         if(!exists){
-            exercises.push({
+            const NewExercise = {
                 id: "ex_" + Date.now(),
                 name: name,
                 description: description,
                 video: video || "no link"
-            })
-            localStorage.setItem('library', JSON.stringify(exercises));
+            };
+            await apiProxy.saveExercise(NewExercise);
             return true;
         }
         return false;
     }
-    static deleteExercise(id){
-        let exercises = this.getExercises();
-        exercises = exercises.filter(ex => ex.id !== id);
-        localStorage.setItem('library', JSON.stringify(exercises));
+    static async deleteExercise(id){
+        return await apiProxy.deleteExercise(id);
     }
     
     
 }
 
 export class ExerciseHistory{
-    static saveWorkout(workoutData, duration, avgHR){
-        const history = JSON.parse(localStorage.getItem('gymlog-history')) || [];
+    static async saveWorkout(workoutData, duration, avgHR){
         let volume = 0, sets = 0;
          
         workoutData.forEach(exercise => {
@@ -93,22 +72,16 @@ export class ExerciseHistory{
             exercises: workoutData
         };
 
-        history.push(workoutSummary);
-        localStorage.setItem('gymlog-history', JSON.stringify(history));
-
+        await apiProxy.saveWorkout(workoutSummary);
         return workoutSummary;
     }
 
-    static loadHistory() {
-        return JSON.parse(localStorage.getItem('gymlog-history')) || [];
+    static async loadHistory() {
+        return await apiProxy.getAllWorkouts();
     }
 
-    static deleteWorkout(id){
-        let history = this.loadHistory();
-
-        history=history.filter(workout=>workout.id !== id);
-
-        localStorage.setItem('gymlog-history', JSON.stringify(history));
+    static async deleteWorkout(id){
+        return await apiProxy.deleteWorkout(id);
     }
 }
 

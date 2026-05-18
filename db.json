@@ -1,0 +1,65 @@
+{
+  "workouts": [
+    {
+      "id": "lTsXXYCvvrs",
+      "date": "May 18 at 04:20 PM",
+      "volume": 4740,
+      "sets": 6,
+      "duration": "00:00:38",
+      "avgHr": 142,
+      "exercises": [
+        {
+          "id": "1779110440147mjju8",
+          "name": "Bench Press",
+          "sets": [
+            {
+              "weight": 65,
+              "reps": 12
+            },
+            {
+              "weight": 65,
+              "reps": 12
+            },
+            {
+              "weight": 65,
+              "reps": 12
+            }
+          ]
+        },
+        {
+          "id": "1779110440147ow28n",
+          "name": "Deadlift",
+          "sets": [
+            {
+              "weight": 80,
+              "reps": 10
+            },
+            {
+              "weight": 80,
+              "reps": 10
+            },
+            {
+              "weight": 80,
+              "reps": 10
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "id": "ex_1",
+      "name": "Bench Press",
+      "description": "Basic chest exercise",
+      "video": "https://www.youtube.com/watch?v=SCVCLChPQFY"
+    },
+    {
+      "id": "ex_2",
+      "name": "Deadlift",
+      "description": "Basic legs and lowerback exercise",
+      "video": "https://www.youtube.com/watch?v=1ZXobu7JvvE"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

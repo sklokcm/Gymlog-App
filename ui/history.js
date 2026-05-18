@@ -8,7 +8,7 @@ export async function renderHistory(customData = null){
     await new Promise(resolve => setTimeout(resolve, 300));
 
     try{
-        const data = customData || ExerciseHistory.loadHistory();
+        const data = customData || await ExerciseHistory.loadHistory();
         historyList.innerHTML='';
         if (data.length===0){
             historyList.innerHTML = "<p> It's empty( </p>";
@@ -62,7 +62,7 @@ export async function renderHistory(customData = null){
 
 
 export function viewDetails(){
-    historyList.addEventListener('click', (e)=>{
+    historyList.addEventListener('click', async (e)=>{
     if(e.target.classList.contains('view-details-btn')){
         const button = e.target;
         const existingDetails = button.nextElementSibling;
@@ -73,7 +73,7 @@ export function viewDetails(){
         }
 
         const workoutId = button.getAttribute('data-id');
-        const historyData = ExerciseHistory.loadHistory();
+        const historyData = await ExerciseHistory.loadHistory();
 
         const workout = historyData.find(w => w.id.toString() === workoutId);
         if(!workout) return;
@@ -102,14 +102,14 @@ export function viewDetails(){
 }
 
 export function deleteWorkout(){
-    historyList.addEventListener('click', (e)=>{
+    historyList.addEventListener('click', async (e)=>{
         const target = e.target;
         if (target.classList.contains('delete-workout-btn') || target.closest('.delete-workout-btn')){
             const btn = target.closest('.delete-workout-btn');
             const workoutId = btn.getAttribute('data-id');
 
             if (confirm("Delete this workout?")) {
-            ExerciseHistory.deleteWorkout(workoutId);
+            await ExerciseHistory.deleteWorkout(workoutId);
             renderHistory(); 
             appEvent.emit('historyUpdated', { action: 'deleted' });
             }
@@ -132,8 +132,8 @@ export function sortedHistory() {
     const sortBtn = document.getElementById('sort-btn');
     let isSortedByVolume = false;
 
-    sortBtn.addEventListener('click', () => {
-        const data = ExerciseHistory.loadHistory();
+    sortBtn.addEventListener('click', async () => {
+        const data = await ExerciseHistory.loadHistory();
         if (data.length === 0) return alert("History is empty!");
         isSortedByVolume  = !isSortedByVolume;
 
@@ -176,7 +176,7 @@ export function historyFilter(){
             return; 
         }
 
-        const data = ExerciseHistory.loadHistory();
+        const data = await ExerciseHistory.loadHistory();
         if (data.length === 0) return alert("History is empty!");
 
         isSearching = true;

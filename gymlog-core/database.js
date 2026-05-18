@@ -1,37 +1,41 @@
 export class DatabaseService {
     constructor() {
-        this.storageKey = 'gymlog-history';
+        this.baseURL = 'http://localhost:3000';
     }
 
     async getAllWorkouts() {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                const data = JSON.parse(localStorage.getItem(this.storageKey)) || [];
-                resolve(data);
-            }, 400); 
-        });
+        const response = await fetch (`${this.baseURL}/workouts`);
+        return await response.json();
     }
-
     async saveWorkout(workout) {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                const history = JSON.parse(localStorage.getItem(this.storageKey)) || [];
-                history.push(workout);
-                localStorage.setItem(this.storageKey, JSON.stringify(history));
-                resolve({ success: true, id: workout.id });
-            }, 500);
+        const response = await fetch(`${this.baseURL}/workouts`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(workout)
         });
+        return await response.json();
     }
 
     async deleteWorkout(id) {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                let history = JSON.parse(localStorage.getItem(this.storageKey)) || [];
-                history = history.filter(w => w.id !== id);
-                localStorage.setItem(this.storageKey, JSON.stringify(history));
-                resolve({ success: true });
-            }, 300);
+        await fetch(`${this.baseURL}/workouts/${id}`, { method: 'DELETE' });
+    }
+
+
+    async getAllExercises() {
+        const response = await fetch (`${this.baseURL}/exercises`);
+        return await response.json();
+    }
+    async saveExercise(workout) {
+        const response = await fetch(`${this.baseURL}/exercises`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(workout)
         });
+        return await response.json();
+    }
+
+    async deleteExercise(id) {
+        await fetch(`${this.baseURL}/exercises/${id}`, { method: 'DELETE' });
     }
 }
 
